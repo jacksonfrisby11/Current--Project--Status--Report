@@ -9,7 +9,7 @@ pio.renderers.default = 'browser'
 import warnings 
 warnings.filterwarnings('ignore')
 
-df = pd.read_csv(r"C:\Users\Jacks\OneDrive\Desktop\Senior Project\StudentPerformanceFactors (1).csv")
+df = pd.read_csv(r"C:\Users\Jacks\OneDrive\Desktop\Senior Project\StudentPerformanceFactors.csv")
 
 
 # Region 1 (9/29/25)
