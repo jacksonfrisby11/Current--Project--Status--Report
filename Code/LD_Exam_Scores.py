@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 
 # Load Excel file
-df = pd.read_csv(r"C:\Users\Jacks\OneDrive\Desktop\archive\StudentPerformanceFactors (1).csv")
+df = pd.read_csv(r"C:\Users\Jacks\OneDrive\Desktop\archive\StudentPerformanceFactors.csv")
 
 # Group data by Learning_Disabilities
 grouped = df.groupby("Learning_Disabilities")["Exam_Score"]
