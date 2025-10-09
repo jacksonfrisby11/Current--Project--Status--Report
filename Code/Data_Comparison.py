@@ -9,7 +9,7 @@ pio.renderers.default = 'browser'
 import warnings 
 warnings.filterwarnings('ignore')
 
-df = pd.read_csv(r"C:\Users\Jacks\OneDrive\Desktop\Senior Project\StudentPerformanceFactors (1).csv")
+df = pd.read_csv(r"C:\Users\Jacks\OneDrive\Desktop\Senior Project\StudentPerformanceFactors.csv")
 
 
 # Region 1 (9/29/25)
@@ -52,8 +52,23 @@ fig.update_layout(width=700, height=600,template='plotly_white',title_x=0.5)
 fig.show()
 # End Region 2
 
-#Region 3 (10/7/25)
-## This section visualizes the distribution of all categorical columns in the dataset
+# Region 3 (10/7/25)
+## Create a box plot to show the distribution of exam scores based on parental involvement and learning disabilities
+fig = px.box(df, 
+             x="Parental_Involvement", 
+             y="Exam_Score", 
+             color="Learning_Disabilities", 
+             category_orders={"Parental_Involvement": ["Low", "Medium", "High"]}, 
+                              
+             color_discrete_sequence=["#051e5d", "#dca236"],
+             title="Parental Involvement & Learning Disabilities on Exam")
+
+fig.update_layout(width=700, height=600,template='plotly_white',title_x=0.5)
+fig.show()
+# End Region 3
+
+#Region 4 (10/9/25)
+## Create bar graphs to visualize the distribution of all categorical columns in the dataset
 cat_cols = df.select_dtypes(include='O')
 cols = 2
 rows = (len(cat_cols.columns) + 1) // cols 
@@ -84,3 +99,4 @@ fig.update_layout(
 )
 # Display bar charts
 fig.show()
+# End Region 4
