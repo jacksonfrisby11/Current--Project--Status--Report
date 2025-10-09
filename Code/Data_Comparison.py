@@ -64,6 +64,7 @@ fig = px.box(df,
              title="Parental Involvement & Learning Disabilities on Exam")
 
 fig.update_layout(width=700, height=600,template='plotly_white',title_x=0.5)
+# Display the final box plot
 fig.show()
 # End Region 3
 
