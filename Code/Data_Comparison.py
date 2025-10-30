@@ -1,4 +1,5 @@
 import pandas as pd
+from scipy.stats import ttest_ind
 import numpy as np 
 import matplotlib.pyplot as plt
 import plotly.express as px
@@ -21,7 +22,12 @@ fig = px.scatter(df,
                  color_continuous_scale="Viridis", 
                  title="Study Hours and Learning Disabilities on Exam")
 # Update layout for better visualization
-fig.update_layout(width=600, height=500,template='plotly_white',title_x=0.5)
+fig.update_layout(
+    height=600, 
+    width=700,
+    template='plotly_white',
+    title_x=0.5
+    )
 #Display the plot
 fig.show()
 # Calculate the average exam score for students with and without learning disabilities
@@ -43,11 +49,10 @@ fig = px.box(df,
 # Update layout settings for box plot
 fig.update_layout(
     height=600, 
-    width=800, 
+    width=700, 
     template='plotly_white', 
     title_x=0.5
 )
-fig.update_layout(width=700, height=600,template='plotly_white',title_x=0.5)
 # Display box plot
 fig.show()
 # End Region 2
@@ -63,12 +68,17 @@ fig = px.box(df,
              color_discrete_sequence=["#051e5d", "#dca236"],
              title="Parental Involvement & Learning Disabilities on Exam")
 
-fig.update_layout(width=700, height=600,template='plotly_white',title_x=0.5)
+fig.update_layout(
+    height=600, 
+    width=700,
+    template='plotly_white',
+    title_x=0.5
+    )
 # Display the final box plot
 fig.show()
 # End Region 3
 
-#Region 4 (10/9/25)
+# Region 4 (10/9/25)
 ## Create bar graphs to visualize the distribution of all categorical columns in the dataset
 cat_cols = df.select_dtypes(include='O')
 cols = 2
@@ -94,10 +104,63 @@ for i, column in enumerate(cat_cols.columns):
 # Update layout settings
 fig.update_layout(
     title_text="Distribution of Each Categorical Features",
-    height=2500, width=800,  
+    height=1000, 
+    width=1000,  
     showlegend=True,
     template='plotly_white'
 )
 # Display bar charts
 fig.show()
 # End Region 4
+
+# Region 5 (10/30/25)
+## Filter data into two groups
+ld_group = df[df["Learning_Disabilities"] == "Yes"]["Exam_Score"]
+non_ld_group = df[df["Learning_Disabilities"] == "No"]["Exam_Score"]
+
+# Perform independent samples t-test
+t_stat, p_value = ttest_ind(ld_group, non_ld_group, equal_var=False)
+# Print the results
+print("T-statistic:", round(t_stat, 3))
+print("P-value:", p_value)
+# Create box plot to visualize exam scores by learning disability status
+fig = px.box(
+    df,
+    x="Learning_Disabilities",
+    y="Exam_Score",
+    color="Learning_Disabilities",
+    title="Exam Performance by Learning Disability Status"
+)
+
+# Adjust figure layout
+fig.update_layout(
+   title_text="Exam Performance by Learning Disability Status",
+    height=600, 
+    width=700,
+    template="plotly_white",
+    title_x=0.5  
+)
+
+fig.show()
+# End Region 5
+
+# Region 6 (10/30/25)
+## # Calculate the correlation matrix for all numeric columns in the dataset
+corr = df.corr(numeric_only=True)
+# Create a heatmap
+fig = px.imshow(
+    corr,
+    text_auto=True,                
+    color_continuous_scale="RdBu_r",  
+    title="Correlation Heatmap of Key Variables"
+)
+# Adjust figure layout 
+fig.update_layout(
+    height=600,
+    width=700,
+    template="plotly_white",
+    title_x=0.5
+)
+
+fig.show()
+# End Region 6
